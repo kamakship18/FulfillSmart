@@ -1,0 +1,26 @@
+# FulfillSmart Backend Requirements
+
+# Build tools (install first)
+setuptools>=65.0.0
+wheel>=0.37.0
+
+# Core FastAPI
+#{currently using for asgi web services as uvicoirn supports HTTP/1.1 and websockets}
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0 
+
+
+# CORS middleware (included with FastAPI)
+# python-multipart for file uploads (required for FastAPI file handling)
+python-multipart>=0.0.6
+
+# Data processing and analysis (using more compatible versions)
+pandas>=2.0.0
+numpy>=1.21.0
+openpyxl>=3.1.0
+
+# Data validation
+pydantic>=2.0.0
+
+# Optional: For better development experience
+python-dotenv>=1.0.0

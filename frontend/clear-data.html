@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear FulfillSmart Data</title>
+</head>
+<body>
+    <h1>Clear FulfillSmart Data</h1>
+    <button onclick="clearData()">Clear All Data</button>
+    <div id="result"></div>
+
+    <script>
+        function clearData() {
+            // Clear localStorage
+            localStorage.removeItem('simulationResults');
+            
+            // Show result
+            document.getElementById('result').innerHTML = '<p style="color: green;">✅ localStorage cleared successfully!</p>';
+            
+            console.log('Cleared simulationResults from localStorage');
+        }
+        
+        // Show current state
+        window.onload = function() {
+            const storedData = localStorage.getItem('simulationResults');
+            if (storedData) {
+                document.getElementById('result').innerHTML = '<p style="color: orange;">⚠️ Found existing data in localStorage</p>';
+            } else {
+                document.getElementById('result').innerHTML = '<p style="color: green;">✅ No data found in localStorage</p>';
+            }
+        }
+    </script>
+</body>
+</html>
