@@ -31,6 +31,10 @@ async def simulate_logistics(
         print(f"Processed data structure: {list(processed_data.keys())}")
         print(f"Number of orders: {processed_data.get('total_records', 0)}")
 
+        # Store the processed data for blueprint access
+        from services.process_excel import store_processed_data
+        store_processed_data(processed_data)
+
         simulation_results = run_simulation(
             processed_data,
             break_even_volume=break_even_volume,

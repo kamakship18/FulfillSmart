@@ -100,3 +100,21 @@ def validate_data_structure(data):
         raise ValueError("No valid orders found in the data")
     
     return True
+
+# Global storage for processed data (in production, use a database)
+_stored_processed_data = None
+
+def store_processed_data(data):
+    """Store processed data globally"""
+    global _stored_processed_data
+    _stored_processed_data = data
+
+def get_processed_data():
+    """Get stored processed data"""
+    global _stored_processed_data
+    return _stored_processed_data
+
+def clear_processed_data():
+    """Clear stored processed data"""
+    global _stored_processed_data
+    _stored_processed_data = None

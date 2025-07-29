@@ -49,6 +49,17 @@ export const getSummary = async () => {
   }
 };
 
+// Get uploaded data for blueprint
+export const getUploadedData = async () => {
+  try {
+    const response = await api.get('/api/data');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching uploaded data:', error);
+    throw error;
+  }
+};
+
 // Get grouped summary data
 export const getGroupedSummary = async () => {
   try {

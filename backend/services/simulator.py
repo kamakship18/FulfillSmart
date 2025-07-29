@@ -138,13 +138,74 @@ def get_aggregate_metrics() -> Dict:
     """
     Get aggregate metrics for summary dashboard
     """
-    # Sample aggregate data
+    global _stored_simulation_results
+    
+    if not _stored_simulation_results:
+        # Return empty structure if no data available
+        return {
+            'total_simulations': 0,
+            'avg_cost_savings': 0,
+            'avg_time_savings': 0,
+            'active_rdcs': 0,
+            'cities_covered': 0,
+            'city_summary': []
+        }
+    
+    # Process stored simulation results to create city summary
+    city_data = {}
+    total_savings = 0
+    total_time_savings = 0
+    recommended_count = 0
+    
+    for result in _stored_simulation_results:
+        city = result.get('city', 'Unknown')
+        volume = result.get('volume', 0)
+        savings_percent = result.get('savings_percent', 0)
+        recommended = result.get('recommended', False)
+        
+        if city not in city_data:
+            city_data[city] = {
+                'city': city,
+                'demand': 0,
+                'total_orders': 0,
+                'avg_savings': 0,
+                'total_savings': 0,
+                'recommended_orders': 0
+            }
+        
+        city_data[city]['demand'] += volume
+        city_data[city]['total_orders'] += 1
+        city_data[city]['total_savings'] += savings_percent
+        
+        if recommended:
+            city_data[city]['recommended_orders'] += 1
+            recommended_count += 1
+        
+        total_savings += savings_percent
+        total_time_savings += 15.2  # Estimated time savings
+    
+    # Calculate averages and create city summary
+    city_summary = []
+    for city_info in city_data.values():
+        if city_info['total_orders'] > 0:
+            city_info['avg_savings'] = city_info['total_savings'] / city_info['total_orders']
+        city_summary.append(city_info)
+    
+    # Sort by demand (highest first)
+    city_summary.sort(key=lambda x: x['demand'], reverse=True)
+    
+    # Calculate aggregate metrics
+    total_records = len(_stored_simulation_results)
+    avg_savings = total_savings / total_records if total_records > 0 else 0
+    avg_time_savings = total_time_savings / total_records if total_records > 0 else 0
+    
     return {
-        'total_simulations': 150,
-        'avg_cost_savings': 23.5,
-        'avg_time_savings': 15.2,
-        'active_rdcs': 8,
-        'cities_covered': 45
+        'total_simulations': total_records,
+        'avg_cost_savings': round(avg_savings, 1),
+        'avg_time_savings': round(avg_time_savings, 1),
+        'active_rdcs': len(city_data),
+        'cities_covered': len(city_data),
+        'city_summary': city_summary
     }
 
 # Store simulation results globally for analytics (in production, use a database)

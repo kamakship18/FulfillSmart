@@ -20,17 +20,14 @@ export default function Navbar() {
             <Link href="/dashboard" className="text-gray-600 hover:text-indigo-700 transition-colors">
               Dashboard
             </Link>
+            <Link href="/blueprint" className="text-gray-600 hover:text-indigo-700 transition-colors">
+              🏗️ Blueprint
+            </Link>
             <Link href="/insights" className="text-gray-600 hover:text-indigo-700 transition-colors">
               📊 Insights
             </Link>
             <Link href="/map" className="text-gray-600 hover:text-indigo-700 transition-colors">
               Map View
-            </Link>
-            <Link href="/compare" className="text-gray-600 hover:text-indigo-700 transition-colors">
-              Compare
-            </Link>
-            <Link href="/sop" className="text-gray-600 hover:text-indigo-700 transition-colors">
-              SOP
             </Link>
           </div>
 
